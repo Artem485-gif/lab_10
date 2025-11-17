@@ -1,0 +1,37 @@
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- Завантаження JSON ---
+with open(r"C:\Users\Admin\PyCharmMiscProject\teams.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+ingredients = [team["name"] for team in data["teams"]]
+data_values = [team["points"] for team in data["teams"]]
+
+fig, ax = plt.subplots(figsize=(6, 3), subplot_kw=dict(aspect="equal"))
+
+def func(pct, allvals):
+    absolute = int(np.round(pct / 100. * np.sum(allvals)))
+    return f"{pct:.1f}%\n({absolute} pts)"
+
+wedges, texts, autotexts = ax.pie(
+    data_values,
+    autopct=lambda pct: func(pct, data_values),
+    textprops=dict(color="w")
+)
+
+# Легенда збоку
+ax.legend(
+    wedges,
+    ingredients,
+    title="Teams",
+    loc="center left",
+    bbox_to_anchor=(1, 0, 0.5, 1)
+)
+
+plt.setp(autotexts, size=8, weight="bold")
+
+ax.set_title("Football League: Points Distribution")
+
+plt.show()
