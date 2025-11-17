@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+
+# --- Дані з порталу World Bank ---
+years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
+greece = [10892413.0, 10820883.0, 10775971.0, 10754679.0, 10732882.0, 10721582.0, 10698599.0, 10569207.0, 10436882.0, 10405588.0, 10388805.0]
+ukraine = [45972380.0, 45784896.0, 45616832.0, 45436041.0, 45208907.0, 44957458.0, 44680014.0, 44298640.0, 41048766.0, 37732836.0, 37860221.0]
+
+data = {
+    "Greece": greece,
+    "Ukraine": ukraine
+}
+
+plt.figure(figsize=(12, 6))
+plt.plot(years, greece, marker="o", label="Greece")
+plt.plot(years, ukraine, marker="s", label="Ukraine")
+
+plt.xlabel("Year")
+plt.ylabel("Population, total")
+plt.title("Population Dynamics: Greece vs Ukraine (2014–2024)")
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+country = input("Enter country name (Greece / Ukraine): ")
+
+if country in data:
+    plt.figure(figsize=(12, 6))
+    plt.bar(years, data[country])
+    plt.xlabel("Year")
+    plt.ylabel("Population, total")
+    plt.title(f"Population Bar Chart for {country} (2014–2024)")
+    plt.tight_layout()
+    plt.show()
+else:
+    print("Country not found. Please enter 'Greece' or 'Ukraine'.")
